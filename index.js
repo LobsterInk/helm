@@ -29,10 +29,10 @@ async function status(state) {
       return;
     }
 
-    const client = new github.GitHub(token);
+    const client = github.getOctokit(token);
     const url = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}/checks`;
 
-    await client.repos.createDeploymentStatus({
+    await client.rest.repos.createDeploymentStatus({
       ...context.repo,
       deployment_id: deployment.id,
       state,
